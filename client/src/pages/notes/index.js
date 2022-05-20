@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NoNotes, NotesCard } from "../../components";
+import { EditNoteModal, NoNotes, NotesCard } from "../../components";
 
 export default function NotesSection() {
   const [editMode, setEditMode] = useState(false);
@@ -31,6 +31,7 @@ export default function NotesSection() {
         <NotesCard />
         <NotesCard />
       </div>
+      <EditNoteModal/>
       {/* <NoNotes /> */}
     </div>
   );
