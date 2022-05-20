@@ -1,8 +1,7 @@
 import React from "react";
 
-
 export default function LoginScreen() {
-    return <>
-        Hello World
-    </>
+    return <div className="prose lg:prose-xl">
+        Login page
+    </div>
 }
