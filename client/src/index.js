@@ -3,12 +3,14 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoginScreen from "./pages/index"
+import NotesSection from "./pages/notes"
 import ReactDOM from "react-dom/client";
 
 function App() {
   return (
     <Routes>
       <Route path={`/`} exact element={<LoginScreen/>} />
+      <Route path={`/notes`} exact element={<NotesSection/>} />
     </Routes>
   );
 }
