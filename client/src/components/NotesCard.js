@@ -8,7 +8,7 @@ export default function NotesCard() {
     <div
       onMouseEnter={() => setShowEdit(true)}
       onMouseLeave={() => setShowEdit(false)}
-      className="relative flex flex-col gap-[6px] break-words p-[18px] bg-white border-gray-300 hover:shadow-vg1 rounded-md border border-solid"
+      className="relative cursor-pointer flex flex-col gap-[6px] break-words p-[18px] bg-white border-gray-300 hover:shadow-vg1 rounded-md border border-solid"
     >
       {showEdit ? <EditIcon className="absolute top-[2px] right-[2px]" /> : ""}
       <span className="font-semibold text-[18px]">Heading</span>
