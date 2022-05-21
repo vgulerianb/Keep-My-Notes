@@ -6,7 +6,7 @@ const versionRouter = require("./versions/version.router");
 const cors = require("cors");
 
 const APP_URL = path.resolve(__dirname, "./build");
-const APP_URL_HOME = path.resolve(__dirname, "../build/index.html");
+const APP_URL_HOME = path.resolve(__dirname, "./build/index.html");
 // compress all responses
 app.use(express.json({ limit: '50mb', extended: true }));
 app.use(express.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }));
