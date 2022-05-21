@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const keys = require("./keys");
 const env = process.env.NODE_ENV ?? "dev"
 const conf = keys.mongodb[env];
-console.log(conf)
 
 let connectionString;
 
