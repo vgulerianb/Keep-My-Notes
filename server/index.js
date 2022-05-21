@@ -5,7 +5,7 @@ const path = require("path");
 const versionRouter = require("./versions/version.router");
 const cors = require("cors");
 
-const APP_URL = path.resolve(__dirname, "../client/build");
+const APP_URL = path.resolve(__dirname, "./build");
 const APP_URL_HOME = path.resolve(__dirname, "../client/build/index.html");
 let dir = __dirname.replace("/server", "/client/");
 // compress all responses
