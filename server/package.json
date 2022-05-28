@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "env-cmd -f .env nodemon index.js",
+    "start": "pm2 start index.js --watch -- --port 3000",
     "dev": "env-cmd -f .env nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,6 +19,7 @@
     "mongoose": "^6.3.4",
     "nodemon": "^2.0.16",
     "path": "^0.12.7",
+    "pm2": "^5.2.0",
     "query-string": "^7.1.1",
     "slugify": "^1.6.5",
     "uuid": "^8.3.2"
