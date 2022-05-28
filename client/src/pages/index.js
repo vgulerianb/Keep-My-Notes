@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import GoogleLogo from "../assets/google.svg"
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginScreen() {
   const redirect_url = "https://keep-my-notes.vercel.app"
   const clientId = "783341713076-di9j1e0h4gk794mhhhb0onip7rni6b0g.apps.googleusercontent.com"
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    const accessToken = localStorage.getItem("accessToken")
+    if(accessToken){
+      navigate("/notes")
+    }
+  },[])
 
   return (
     <div className="prose lg:prose-xl flex justify-center mt-[100px] h-screen min-w-full">

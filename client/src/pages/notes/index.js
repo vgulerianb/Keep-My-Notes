@@ -1,8 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { EditNoteModal, NoNotes, NotesCard } from "../../components";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { BASE_API_URL } from "../../constants";
 
 export default function NotesSection() {
   const [editMode, setEditMode] = useState(false);
+  const [accessToken, setAccessToken] = useState("")
+  const [editModal, setEditModal] = useState({
+    title: "",
+    description: "",
+    id: ""
+  })
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    const token = localStorage.getItem("accessToken")
+    if(!token){
+      navigate("/")
+    }
+    setAccessToken(token)
+  },[])
+
+  useEffect(()=>{
+    if(accessToken){
+      getNotes()
+    }
+  },[accessToken])
+
+  const getNotes = () =>{
+    axios.get(`${BASE_API_URL}notes`,{
+      headers: {
+        "Authorization": accessToken
+      }
+    }).then((res)=>{
+      console.log(res)
+    })
+  }
 
   return (
     <div
@@ -31,7 +65,7 @@ export default function NotesSection() {
         <NotesCard />
         <NotesCard />
       </div>
-      <EditNoteModal/>
+      {editModal.id!==""?<EditNoteModal/>:""}
       {/* <NoNotes /> */}
     </div>
   );

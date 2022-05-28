@@ -69,6 +69,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/notes", token.verifyToken, async (req, res) => {
   const userNotes = await NotesModal.find({ user: req?.token?.["user"] });
+  console.log(mongoose.connection.readyState);
   res.status(200).send({
     status: "success",
     message: "API is working fine.",
@@ -77,6 +78,7 @@ router.get("/notes", token.verifyToken, async (req, res) => {
 });
 
 router.post("/notes", token.verifyToken, async (req, res) => {
+  console.log(mongoose.connection.readyState);
   const params = req.params;
   const queryParams = req.query;
   const bodyParams = req.body;
@@ -99,6 +101,7 @@ router.post("/notes", token.verifyToken, async (req, res) => {
 });
 
 router.put("/notes", token.verifyToken, async (req, res) => {
+  console.log(mongoose.connection.readyState);
   const params = req.params;
   const queryParams = req.query;
   const bodyParams = req.body;
@@ -130,6 +133,7 @@ router.put("/notes", token.verifyToken, async (req, res) => {
 });
 
 router.delete("/notes", token.verifyToken, async (req, res) => {
+  console.log(mongoose.connection.readyState);
   const params = req.params;
   const queryParams = req.query;
   const bodyParams = req.body;
