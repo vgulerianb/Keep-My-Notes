@@ -4,9 +4,15 @@ import { Delete } from "@mui/icons-material";
 import axios from "axios";
 import { BASE_API_URL } from "../constants";
 
-export default function EditNoteModal({ id, title, description, onClose, setNotes}) {
-  const [noteTitle, setNoteTitle] = useState(title)
-  const [noteDesc, setNoteDesc] = useState(description)
+export default function EditNoteModal({
+  id,
+  title,
+  description,
+  onClose,
+  setNotes,
+}) {
+  const [noteTitle, setNoteTitle] = useState(title);
+  const [noteDesc, setNoteDesc] = useState(description);
   const [accessToken, setAccessToken] = useState("");
 
   useEffect(() => {
@@ -16,18 +22,36 @@ export default function EditNoteModal({ id, title, description, onClose, setNote
 
   const editNote = () => {
     axios
-      .put(`${BASE_API_URL}notes`,{
-        id: id,
-        title: noteTitle,
-        description: noteDesc
-      }, {
+      .put(
+        `${BASE_API_URL}notes`,
+        {
+          id: id,
+          title: noteTitle,
+          description: noteDesc,
+        },
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        }
+      )
+      .then((res) => {
+        setNotes(res?.data?.notes);
+        onClose();
+      });
+  };
+
+  const deleteNote = () => {
+    axios
+      .delete(`${BASE_API_URL}notes`, {
+        data: { id: id },
         headers: {
           Authorization: accessToken,
-        }
+        },
       })
       .then((res) => {
         setNotes(res?.data?.notes);
-        onClose()
+        onClose();
       });
   };
 
@@ -41,7 +65,12 @@ export default function EditNoteModal({ id, title, description, onClose, setNote
     >
       <div className="w-full flex gap-[6px] flex-col justify-between max-h-[800px] min-h-[300px] max-w-[600px] pb-[6px] p-[18px]">
         <div className="flex gap-[6px] flex-col">
-          <input onChange={(e) => setNoteTitle(e.target.value)} value={noteTitle} placeholder="Title" className="font-semibold text-[18px]" />
+          <input
+            onChange={(e) => setNoteTitle(e.target.value)}
+            value={noteTitle}
+            placeholder="Title"
+            className="font-semibold text-[18px]"
+          />
           <textarea
             onChange={(e) => setNoteDesc(e.target.value)}
             value={noteDesc}
@@ -50,7 +79,7 @@ export default function EditNoteModal({ id, title, description, onClose, setNote
           />
         </div>
         <div className="flex justify-between">
-          <IconButton>
+          <IconButton onClick={deleteNote}>
             <Delete />{" "}
           </IconButton>
           <Button
