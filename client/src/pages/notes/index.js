@@ -8,6 +8,8 @@ export default function NotesSection() {
   const [editMode, setEditMode] = useState(false);
   const [accessToken, setAccessToken] = useState("");
   const [notes, setNotes] = useState([]);
+  const [noteTitle, setNoteTitle] = useState("");
+  const [noteDesc, setNoteDesc] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,9 +38,35 @@ export default function NotesSection() {
       });
   };
 
+  const addNote = () => {
+    axios
+      .post(
+        `${BASE_API_URL}notes`,
+        {
+          title: noteTitle,
+          description: noteDesc,
+        },
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        }
+      )
+      .then((res) => {
+        setNotes(res?.data?.notes);
+        setNoteDesc("")
+        setNoteTitle("")
+      });
+  };
+
   return (
     <div
-      onClick={() => setEditMode(false)}
+      onClick={() => {
+        setEditMode(false);
+        if (noteDesc !== "" || noteTitle !== "") {
+          addNote();
+        }
+      }}
       className="prose flex flex-col items-center min-w-full h-screen px-[40px] my-[40px] gap-[40px]"
     >
       <span className="font-semibold text-3xl">Keep my notes</span>
@@ -48,9 +76,21 @@ export default function NotesSection() {
         }}
         className="shadow-vg1 gap-[12px] bg-white w-full flex flex-col max-w-[600px] p-[20px] rounded-md"
       >
-        {editMode ? <input placeholder="Title" /> : ""}
+        {editMode ? (
+          <input
+            value={noteTitle}
+            onChange={(e) => setNoteTitle(e.target.value)}
+            placeholder="Title"
+          />
+        ) : (
+          ""
+        )}
         <textarea
-          onClick={() => setEditMode(true)}
+          value={noteDesc}
+          onChange={(e) => setNoteDesc(e.target.value)}
+          onClick={() => {
+            setEditMode(true)
+          }}
           className="border-0 resize-none max-h-[900px]"
           placeholder="Take a note..."
         />
