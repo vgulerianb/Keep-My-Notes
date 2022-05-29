@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Button, Dialog, IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 
-export default function EditNoteModal() {
+export default function EditNoteModal({ id, title, description, onClose }) {
+  const [noteTitle, setNoteTitle] = useState(title)
+  const [noteDesc, setNoteDesc] = useState(description)
+
   return (
     <Dialog
       open={true}
@@ -12,8 +15,9 @@ export default function EditNoteModal() {
     >
       <div className="w-full flex gap-[6px] flex-col justify-between max-h-[800px] min-h-[300px] max-w-[600px] pb-[6px] p-[18px]">
         <div className="flex gap-[6px] flex-col">
-          <input placeholder="Title" className="font-semibold text-[18px]" />
+          <input value={noteTitle} placeholder="Title" className="font-semibold text-[18px]" />
           <textarea
+            value={noteDesc}
             className="border-0 resize-none h-full max-h-[900px] text-[16px]"
             placeholder="Take a note..."
           />
