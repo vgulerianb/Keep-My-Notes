@@ -62,8 +62,9 @@ export default function NotesSection() {
             <NotesCard
               title={val?.title}
               description={val?.description}
-              id={val?.id}
+              id={val?._id}
               key={i}
+              setNotes={setNotes}
             />
           ))}
         </div>

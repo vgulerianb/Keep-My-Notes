@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import EditNoteModal from "./EditNoteModal";
 
-export default function NotesCard({ id, title, description }) {
+export default function NotesCard({ id, title, description, setNotes}) {
   const [showEdit, setShowEdit] = useState(false);
   const [editModal, setEditModal] = useState(false);
 
@@ -11,11 +11,11 @@ export default function NotesCard({ id, title, description }) {
       <div
         onMouseEnter={() => setShowEdit(true)}
         onMouseLeave={() => setShowEdit(false)}
+        onClick={() => setEditModal(true)}
         className="relative cursor-pointer flex flex-col gap-[6px] break-words p-[18px] bg-white border-gray-300 hover:shadow-vg1 rounded-md border border-solid"
       >
         {showEdit ? (
           <EditIcon
-            onClick={() => setEditModal(true)}
             className="absolute top-[2px] right-[2px]"
           />
         ) : (
@@ -25,7 +25,7 @@ export default function NotesCard({ id, title, description }) {
         <span className="text-[16px]">{description}</span>
       </div>
       {editModal ? (
-        <EditNoteModal onClose={() => setEditModal(false)} id={id} title={title} description={description} />
+        <EditNoteModal setNotes={setNotes} onClose={() => setEditModal(false)} id={id} title={title} description={description} />
       ) : (
         ""
       )}
